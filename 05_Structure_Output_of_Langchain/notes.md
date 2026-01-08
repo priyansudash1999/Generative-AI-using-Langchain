@@ -281,3 +281,113 @@
       - Categories
       - Workflow states
       - Agent actions
+
+  #### 2. Pydantic :-
+
+  - Pydantic is a data validation and data parsing library for python.
+  - It ensures that the data we work with is correct, structured and type-safe.
+
+  ```python
+  from pydantic import BaseModel
+
+  class Student(BaseModel):
+    name: str
+
+  new_student = {"name": "Priyansu"}
+
+  student = Student(**new_student)
+
+  print(student)
+  ```
+
+  Output:-
+  `name='Priyansu'`
+
+  > But
+
+  ```python
+  from pydantic import BaseModel
+
+  class Student(BaseModel):
+   name: str
+
+  new_student = {"name": 23}
+
+  student = Student(**new_student)
+
+  print(student)
+  ```
+
+  Output: `Input should be a valid string [type=string_type, input_value=23, input_type=int]
+For further information visit https://errors.pydantic.dev/2.12/v/string_type`
+
+  > Gives error because it validates the data. name should taken a string but when we provide int then it gives us error.
+
+  > In typedDict we can pass a int incase of str, that will not give any error.
+
+  ##### pydantic with Optional :-
+
+  ```python
+  from pydantic import BaseModel
+  from typing import Optional
+
+
+  class Student(BaseModel):
+    name: str
+    age: Optional[int] = None
+
+  new_student = {"name": "Priyansu",  "age": 27}
+
+  student = Student(**new_student)
+
+  print(student)
+  ```
+
+  Output:- `name='Priyansu' age=27`
+
+  ##### Pydantic field constraints:-
+
+  ```python
+  from pydantic import BaseModel, Field
+
+  class Score(BaseModel):
+      value: float = Field(ge=0)  # greater or equal to 0
+
+  res= Score(value=0)
+  ress = Score(value=0.5)
+  # resss = Score(value=-2)  --> Gives compile time error beacause value should be equal or greater than 0
+
+  print(res, ress)
+  ```
+
+  Output:-
+  `value=0.0 value=0.5`
+
+  ```python
+  from pydantic import BaseModel, Field
+
+  class Scores(BaseModel):
+  value: float = Field(ge=0, le=1)  # greater or equal to 0 and lesser or equal to 1
+
+  result = Scores(value = 0.8)
+  resultt = Scores(value=1)
+
+  print(result, resultt)
+  ```
+
+  Output:-
+  `value=0.8 value=1.0`
+
+  ###### Common Constraints in pydantic:-
+
+  | Constraint   | Meaning    |
+  | ------------ | ---------- |
+  | `ge`         | ≥          |
+  | `le`         | ≤          |
+  | `gt`         | >          |
+  | `lt`         | <          |
+  | `min_length` | min length |
+  | `max_length` | max length |
+  | `regex`      | pattern    |
+
+  ##### Enum (Prevents Hallucination) :-
