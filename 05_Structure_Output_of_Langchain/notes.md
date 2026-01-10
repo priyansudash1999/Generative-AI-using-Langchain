@@ -318,7 +318,7 @@
   print(student)
   ```
 
-  Output: `Input should be a valid string [type=string_type, input_value=23, input_type=int]
+  Output (Error): `Input should be a valid string [type=string_type, input_value=23, input_type=int]
 For further information visit https://errors.pydantic.dev/2.12/v/string_type`
 
   > Gives error because it validates the data. name should taken a string but when we provide int then it gives us error.
@@ -390,4 +390,58 @@ For further information visit https://errors.pydantic.dev/2.12/v/string_type`
   | `max_length` | max length |
   | `regex`      | pattern    |
 
-  ##### Enum (Prevents Hallucination) :-
+  ##### Coerce :-
+
+  - Coercion means Pydantic automatically converts input data into the declared type whenever possible.
+    ```
+    "25"  →  25
+    "3.14" → 3.14
+    ```
+  - Example:-
+
+    ```python
+    from pydantic import BaseModel
+
+    class User(BaseModel):
+        age: int
+        score: float
+    u = User(age="25", score="3.5")
+    print(u)
+    ```
+
+    Output :-
+    `   User(age=25, score=3.5)`
+
+  - Coercion with Boolean (Important!) :-
+
+    - It can make "True" to `True` and "False" to `False` or 1 to `True` and 0 to `False`.
+
+  - Similarly coercion works with different type of data types in python.
+  - 🎯 Interview One-Liner :- Pydantic performs safe type coercion before validation, which is especially useful when consuming loosely typed data like JSON or LLM outputs.
+
+  ##### BuildIn Validation :-
+
+  - Built-in validation means Pydantic automatically checks and enforces rules without us writing any custom validators.
+  - It happens using:
+
+    - Type hints
+    - Field constraints
+    - Standard Python types
+
+  - Example:-
+
+    ```python
+    from pydantic import BaseModel, Field, EmailStr
+    from typing import Optional
+
+    class Students(BaseModel):
+      name: str
+      age: Optional[int] = None
+      email: EmailStr
+
+    new_studnt = {"name": "Priyansu",  "age": 27, "email": "abc@gmail.com"}
+
+    # new_student = {"name": 23}
+
+    students = Students(**new_studnt)
+    ```

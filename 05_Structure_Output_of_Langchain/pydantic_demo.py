@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, EmailStr
 from typing import Optional
 
 
@@ -41,3 +41,16 @@ result = Scores(value = 0.8)
 resultt = Scores(value=1)
 
 print(result, resultt)
+
+
+
+class Students(BaseModel):
+  name: str
+  age: Optional[int] = None
+  email: EmailStr
+
+new_studnt = {"name": "Priyansu",  "age": 27, "email": "abc@gmail.com"}
+
+# new_student = {"name": 23}
+
+students = Students(**new_studnt)
