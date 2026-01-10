@@ -445,3 +445,114 @@ For further information visit https://errors.pydantic.dev/2.12/v/string_type`
 
     students = Students(**new_studnt)
     ```
+
+  #### 3. JSON-Schema :-
+
+  - JSON Schema is a standard for describing the structure, types, and rules of JSON data.
+  - JSON is universal data format.
+
+  ```python
+  from typing import TypedDict, Annotated, Optional, Literal
+  from langchain_openai import ChatOpenAI
+  from dotenv import load_dotenv
+
+  load_dotenv()
+  model = ChatOpenAI(model="gpt-4.1-nano", temperature=0)
+
+  # schema
+  json_schema = {
+    "title": "Review",
+    "type": "object",
+    "properties": {
+      "key_themes":{
+        "type":"array",
+        "items": {
+          "type": "string"
+        },
+        "desc": "Write down all the key themes discussed in the review in a list"
+      },
+      "summary": {
+        "type": "string",
+        "desc": "A brief summary of the review"
+      },
+      "sentiment": {
+        "type": "string",
+        "enum": ["pos", "neg"],
+        "desc": "Return sentiment of the review either positive, negative or neutral"
+      },
+      "pros":{
+        "type": ["array", "null"],
+        "items":{
+          "type": "string"
+        },
+        "desc": "Write down all the pros inside a list"
+      },
+      "cons":{
+        "type":["array", "null"],
+        "items":{
+          "type": "string"
+        },
+        "desc": "Write down all the cons inside a list"
+      },
+      "name":{
+        "type": ["string", "null"],
+        "desc": "Write the name of the reviewer"
+      }
+    },
+    "required": ["key_themes", "summary", "sentiment"]
+  }
+
+
+
+  str_model = model.with_structured_output(json_schema)
+  result = str_model.invoke(""" I recently used the Realme 12 Pro+, and unfortunately, my experience was disappointing. While the phone boasts attractive specs on paper, it fell short in several key areas. The software felt unstable, with frequent lags and inconsistent performance during everyday tasks. Battery life was mediocre at best, barely lasting a full day with moderate use. The camera, despite its high megapixel count, struggled in low-light conditions and produced washed-out colors. Additionally, the build quality didn’t feel as premium as expected for a device in this price range. All things considered, I expected much better, but the Realme 12 Pro+ ultimately left me underwhelmed.  Review by Priyansu Dash""")
+
+  print(result)
+  ```
+
+  #### When to use what ?
+
+  > ##### TypedDict:-
+
+  - You only need type hints (Basic structure)
+  - Don't need validation
+  - Trust the llm to return correct data
+    > ##### Pydantic:-
+  - Need Data Validation
+  - Need default values if LLM misses fields.
+  - Want automatic type conversion
+    > ##### JSON :-
+  - Don't want to import extra python libraries(ex:pydantic)
+  - Need validation but don't need python objects
+  - Want to define structure in a standard JSON format.
+
+  | Situation / Requirement                 | TypedDict  | Pydantic    | JSON Schema       |
+  | --------------------------------------- | ---------- | ----------- | ----------------- |
+  | **Only type hints (static typing)**     | ✅ BEST    | ❌ Overkill | ❌                |
+  | **Runtime validation needed**           | ❌         | ✅ BEST     | ❌                |
+  | **Data comes from user / API / LLM**    | ❌         | ✅ BEST     | ❌                |
+  | **FastAPI request / response models**   | ❌         | ✅ BEST     | ⚠️ Auto-generated |
+  | **LangChain structured output**         | ⚠️ Limited | ✅ BEST     | ⚠️ Internal use   |
+  | **LLM tool / function calling**         | ⚠️ Weak    | ✅ BEST     | ✅ REQUIRED       |
+  | **Field constraints (min, max, regex)** | ❌         | ✅          | ✅                |
+  | **Data coercion (`"25"` → `25`)**       | ❌         | ✅          | ❌                |
+  | **Cross-language schema sharing**       | ❌         | ❌          | ✅ BEST           |
+  | **OpenAPI / Swagger docs**              | ❌         | ⚠️ Indirect | ✅ BEST           |
+  | **Configuration validation**            | ❌         | ✅          | ❌                |
+  | **Frontend–backend contract**           | ❌         | ❌          | ✅ BEST           |
+  | **Performance (no validation)**         | ✅ FAST    | ❌ Slower   | ❌                |
+  | **Production-grade safety**             | ❌         | ✅ BEST     | ⚠️ Depends        |
+  | **Learning / quick prototype**          | ✅         | ⚠️          | ❌                |
+
+> ### A few things to remember
+>
+> ![diagram](./assets/a_few.png)
+
+EX:-
+
+- Openai is support function calling
+- Claude, Geminii support JSON mode
+
+> Some llms dont support both
+
+- Ex:- tinyLlama
