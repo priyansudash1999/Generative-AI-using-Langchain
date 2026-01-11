@@ -242,3 +242,7 @@
 
 - StructuredOutputParser is an output parser in Langchain that helps extract structured JSON data from LLM responses based on predefined field schemas.
 - It works by defining a list of fields that the model should return, ensuring the output follows a structured format.
+
+  > #### StructuredOutputParser is effectively deprecated in the newest LangChain designs
+
+### PydanticOutputParser:-
