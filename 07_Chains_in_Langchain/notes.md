@@ -97,3 +97,14 @@ print(res)
 
   print(res)
   ```
+
+### Parallel Chain :-
+
+- A Parallel Chain runs multiple prompts at the same time on the same input and returns all outputs together.
+  ```
+            ┌── Prompt A → LLM → Output A
+  Input ────┼── Prompt B → LLM → Output B
+            └── Prompt C → LLM → Output C
+  ```
+- Use case :-
+  ![parallel](./assets/par.png)
