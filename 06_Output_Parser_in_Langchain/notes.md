@@ -246,3 +246,50 @@
   > #### StructuredOutputParser is effectively deprecated in the newest LangChain designs
 
 ### PydanticOutputParser:-
+
+- Pydantic Output Parser is a structured output parser in langchain that uses Pydantic models to enforce schema validation when processing LLM responses.
+
+- Why we need to use PydanticOutputParser ?
+  - **Strict Schema Enforcement** -> Ensures that LLM responses follow a well-defined structure.
+  - **Type Safety** -> Automatically converts LLM outputs into python objects.
+  - **Easy Validation** :- Uses Pydantic's bulit in validation to catch incorrect or missing data.
+  - **Seamless Integration** :- Works well with other Langchain components.
+- Use case:-
+
+  ![pydantic](./assets/pydantic.png)
+
+  ```python
+  from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
+  from dotenv import load_dotenv
+  from langchain_core.prompts import PromptTemplate
+  from langchain_core.output_parsers import PydanticOutputParser
+  from pydantic import BaseModel, Field
+
+  load_dotenv()
+
+  llm = HuggingFaceEndpoint(
+    repo_id= "google/gemma-2-2b-it",
+    task = "text-generation"
+  )
+
+  model = ChatHuggingFace(llm = llm)
+
+  class Person(BaseModel):
+    name: str = Field(description="name of the Person")
+    age: int = Field(gt=18, description="Age of the person")
+    city: str = Field(description='City Name of the Person belongs from')
+
+
+  parser = PydanticOutputParser(pydantic_object=Person)
+
+  template = PromptTemplate(
+    template = "Generate the name, age and city of fictional {place} person \n {format_instruction}",
+    input_variables= ['place'],
+    partial_variables={'format_instruction': parser.get_format_instructions()}
+  )
+
+  chain = template | model | parser
+  final_res = chain.invoke({'place': 'Nepali'})
+
+  print(final_res)
+  ```
