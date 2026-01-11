@@ -11,3 +11,29 @@
   - Visit for some deep knowldge how langchain created its compos using dummy compos:-
     - [https://colab.research.google.com/drive/1F6Rln2CpS-4Zlxuavf-1WKSa2VrqknR7#scrollTo=hsXcGL22B7u9] -> WITH RUNNABLES
     - [https://colab.research.google.com/drive/1VvF1qxT84CvGnVHBGTx6f01fUvYaPrFg#scrollTo=ZOExcINk7NcE] -> without RUNNABLES
+
+## Types of Runnables :-
+
+- Task specific runnables
+- Runnable Primitives
+
+### Task Specific Runnables :-
+
+- These are core Langchain components that have been converted into runnables so they can be used in a pipelines.
+- **Purpose**:- Perform task-specific operations like LLM calls, prompting, retrieval and etc.
+- **Examples**:-
+  - `ChatOpenAI` - Runs an LLM model.
+  - `PromptTemplate` - Format prompts dynamically.
+  - `Retriever` - Retreive related documents.
+
+### Runnable Primitives :-
+
+- These are fundamantal building blocks for structuring execution logic in AI workflows.
+- **Purpose**:- They help orchestrate execution by defining how different Runnables interact(sequentially, in parallel, conditionally).
+- **Examples**:-
+  - `RunnableSequence` :- Runs step in order (| operator)
+  - `RunnableParallel` :- Runs mmultiple steps simultaneously.
+  - `RunnableMap` :- Maps the same input across multiple functions.
+  - `RunnableBranch` :- Implements conditional execution (if-else logic).
+  - `RunnableLambda` :- Wraps custom python functions into Runnables.
+  - `RunnablePassthrough` :- Just forwards input as output (act as placeholder).
