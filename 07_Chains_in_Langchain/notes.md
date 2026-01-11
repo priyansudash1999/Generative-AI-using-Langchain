@@ -32,6 +32,9 @@
 
 ### Simple Chain:-
 
+- A Simple Chain in LangChain is the most basic pipeline where: `One prompt → One model → One output`
+- There is no multiple steps, no branching—just a single flow.
+
 ```python
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
@@ -55,3 +58,42 @@ res = chain.invoke({'topic': "GenAI"})
 
 print(res)
 ```
+
+### Sequential chain:-
+
+- A Sequential Chain is a multi-step pipeline where:
+  ```
+      Output of Step-1 becomes input of Step-2,
+      Output of Step-2 becomes input of Step-3, and so on.
+  ```
+- Use case:-
+  ![seq](./assets/seq.png)
+
+  ```python
+  from langchain_openai import ChatOpenAI
+  from dotenv import load_dotenv
+  from langchain_core.prompts import PromptTemplate
+  from langchain_core.output_parsers import StrOutputParser
+
+  load_dotenv()
+
+  prompt1 = PromptTemplate(
+    template= 'Generate a detailed report on {topic}',
+    input_variables= ['topic']
+  )
+
+  prompt2 = PromptTemplate(
+    template = 'Generate a 5 pointer summary from the following text \n {text}',
+    input_variables=['text']
+  )
+
+  model = ChatOpenAI()
+
+  parser = StrOutputParser()
+
+  chain = prompt1 | model | parser | prompt2 | model | parser
+
+  res = chain.invoke({'topic': "GenAI affect on software engineering"})
+
+  print(res)
+  ```
