@@ -225,12 +225,11 @@
   ![branch](./assets/branch.png)
   ![general](./assets/ghen.png)
 
-- Syntax :- `       RunnableBranch(
-        (),
-        (),
-        default
-      )
-  `
+- Syntax :- `      RunnableBranch(
+      (),
+      (),
+      default
+    )`
 
   > Use case:- First we get some text from llm, if the text > 500 words then another use another runnable for summary, else print it.
 
@@ -270,3 +269,8 @@
 
   print(res)
   ```
+
+#### LCEL :-
+
+- Much better use of RunnableSequence using pipes
+- Ex:- `prompt | model | parser`
