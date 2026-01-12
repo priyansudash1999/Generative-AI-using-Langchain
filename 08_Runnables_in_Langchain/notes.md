@@ -214,3 +214,59 @@
 
   print(result)
   ```
+
+#### RunnableBranch :-
+
+- RunnableBranch is a control flow component in Langchain that allows us to condtionally route input data to different chains or runnables based on custom logic.
+- It functions like an if/elif/else block for chains - where you define a set of condition functions, each associated with a runnable (e.g LLM call, prompt chain or tool).
+- The first matching condition is executed.
+- If no condition matches, a default runnable is used(if provided).
+
+  ![branch](./assets/branch.png)
+  ![general](./assets/ghen.png)
+
+- Syntax :- `       RunnableBranch(
+        (),
+        (),
+        default
+      )
+  `
+
+  > Use case:- First we get some text from llm, if the text > 500 words then another use another runnable for summary, else print it.
+
+  ```python
+  from langchain_openai import ChatOpenAI
+  from langchain_core.prompts import PromptTemplate
+  from langchain_core.output_parsers import StrOutputParser
+  from dotenv import load_dotenv
+  from langchain_core.runnables import RunnableSequence, RunnableParallel, RunnablePassthrough, RunnableBranch
+
+  load_dotenv()
+
+  model = ChatOpenAI()
+
+  parser = StrOutputParser()
+
+  prompt1 = PromptTemplate(
+    template= "Write a detailed report on the {topic}",
+    input_variables=["topic"]
+  )
+
+  prompt2 = PromptTemplate(
+    template = "Summarize the following text \n {text}",
+    input_variables=["text"]
+  )
+
+  report_gen_chain = prompt1 | model | parser
+
+  branch_chain = RunnableBranch(
+    (lambda x: len(x.split()) > 500, prompt2 | model | parser),
+    RunnablePassthrough()
+  )
+
+  final_chain = report_gen_chain | branch_chain
+
+  res = final_chain.invoke({'topic': "India vs China"})
+
+  print(res)
+  ```
