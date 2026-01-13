@@ -37,11 +37,101 @@
 
   splitter = CharacterTextSplitter(
     chunk_size = 100,
-    chunk_overlap = 0,  # chunk_overlap said overlap between two chunks
+    chunk_overlap = 0,  # chunk_overlap share contexts between chunk
     separator = ''
   )
 
   res = splitter.split_documents(docs_pypdf)
 
   print(res[0])
+  ```
+
+## 2. Text-Structured Based :-
+
+- A text-structure-based text splitter splits text based on logical structure, not just character count or tokens.
+- It recursively splits text using a list of separators, starting from the most meaningful (paragraphs) down to the least (characters).
+-
+
+```
+"\n\n"  → paragraphs
+"\n"    → lines
+" "     → words
+""      → characters (last fallback)
+```
+
+```python
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+
+
+splitter = RecursiveCharacterTextSplitter(
+  chunk_size = 100,
+  chunk_overlap = 0,
+)
+
+text = """
+  Cricket is a popular outdoor sport played between two teams of eleven players each.
+  It originated in England and is now widely played in countries like India, Australia, England, Pakistan, and South Africa.
+
+"""
+
+res = splitter.split_text(text)
+
+print(res)
+```
+
+## 3. Document-structure Based :-
+
+- A document-structure-based splitter divides text using the natural structure of a document (headers, sections, pages, paragraphs), not just size.
+- When we have no letters means we have code files
+- It is an extension of recursive text splitting.
+
+- Separators:-
+
+  - for .md files
+    | Separator | Meaning |
+    | ------------------- | --------------- |
+    | `#` | Main heading |
+    | `##` | Subheading |
+    | `###` | Sub-subheading |
+    | `---` | Section divider |
+    | Blank line (`\n\n`) | Paragraph |
+  - for html files
+    | Tag | Purpose |
+    | ------ | ---------- |
+    | `<h1>` | Page title |
+    | `<h2>` | Section |
+    | `<h3>` | Subsection |
+    | `<p>` | Paragraph |
+    | `<li>` | List item |
+  - for python files
+    | Separator | Purpose |
+    | -------------- | -------------------- |
+    | `\nclass ` | Class definitions |
+    | `\ndef ` | Function definitions |
+    | `\nasync def ` | Async functions |
+
+  ```python
+  from langchain_text_splitters import RecursiveCharacterTextSplitter, Language
+
+  python_code = """
+  class User:
+      def login(self):
+          print("Login")
+
+      def logout(self):
+          print("Logout")
+
+  def helper_function():
+      print("Helper")
+  """
+  splitter = RecursiveCharacterTextSplitter.from_language(
+    language=Language.PYTHON,
+    chunk_size = 300,
+    chunk_overlap=0
+  )
+
+  chunks = splitter.split_text(python_code)
+
+  print(len(chunks))
+  print(chunks)
   ```
