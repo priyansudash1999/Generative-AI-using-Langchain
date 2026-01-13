@@ -201,3 +201,7 @@
 
   print(docs[0].page_content)
   ```
+
+## CSVLoader :-
+
+- CSVLoader is a document loader used to load CSV files into Langchain Document objects one per row, by default.
