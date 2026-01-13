@@ -135,3 +135,38 @@ print(res)
   print(len(chunks))
   print(chunks)
   ```
+
+## 4. Semantic Meaning Based :-
+
+- When a paragraph has two different things, we have to make chunks by semantic meaning,
+- Example:- `Farmers in India are working hard in the fields, preparing the soil and planting seeds for the next season. IPL is a cricket tournament of India where 10 teams play with each other`.
+
+- In this above example there are two different paragraphs joined together. we can not use CharacterTextSplitter or length-based text splitter because the above two sentence has no connection. so we need to chunk semantically because semantic meaning of the two paragraphs are different.
+
+- We can get vectors by sending it to an LLM, after getting vectors we have to get differnce between two vectors. then make chunks according to this. A difference will come where the the differnce is very low, at that point we can conclude that the paragraph separated.
+
+- It is now in development stage. so can not get appropriate answer.
+
+```python
+from langchain_experimental.text_splitter import SemanticChunker
+from langchain_openai.embeddings import OpenAIEmbeddings
+from dotenv import load_dotenv
+
+load_dotenv()
+
+text_splitter = SemanticChunker(
+  OpenAIEmbeddings(),
+  breakpoint_threshold_type="standard_deviation",
+  breakpoint_threshold_amount=1
+)
+
+sample = """
+  Farmers in India are working hard in the fields, preparing the soil and planting seeds for the next season. IPL is a cricket tournament of India where 10 teams play with each other
+"""
+
+docs = text_splitter.create_documents([sample])
+
+print(docs)
+
+print(len(docs))
+```
