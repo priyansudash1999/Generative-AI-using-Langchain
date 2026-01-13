@@ -98,3 +98,80 @@
   | "\*.pdf"        | All .pdf files in the root directory |
   | "data/\*.csv"   | All .csv files in the data/ folder   |
   | "\*\*_/\*_"     | All files (any type, all folders)    |
+
+  ```python
+  from langchain_community.document_loaders import DirectoryLoader, PyPDFLoader
+
+
+  loader = DirectoryLoader(
+    path="./files/roadmap",
+    glob='*.pdf',
+    loader_cls= PyPDFLoader
+  )
+
+  docs = loader.load()
+
+  print(len(docs))
+
+  print(docs[0].page_content)
+
+  print(docs[0].metadata)
+  ```
+
+- The process is slow, I provided 2 pdf files, it can be slow but iof there are a lot of pdf files then it will be very slow.
+- So, there is a solution called lazy loading in langchain.
+
+### load vs lazy_load
+
+#### load() :-
+
+- Eager loading (loading everything at once)
+- Returns: A list of document objects.
+- Loads all documents immediately into memory.
+- Best when :-
+
+  - The number of documents is small.
+  - You want everything loaded upfront.
+
+  ```python
+  from langchain_community.document_loaders import DirectoryLoader, PyPDFLoader
+
+
+  loader = DirectoryLoader(
+    path="./files/roadmap",
+    glob='*.pdf',
+    loader_cls= PyPDFLoader
+  )
+
+  docs = loader.load()
+
+
+  print(docs[0].page_content)
+
+  print(docs[0].metadata)
+  ```
+
+#### lazy_load() :-
+
+- Lazy loading (loads on demand)
+- Returns : A generator of Document object.
+- Documents are not loaded at once. They are fetched one at a time as needed.
+- Best when :-
+
+  - We are dealing with large documents or lots of files.
+  - You want to stream processing (E.g :- Chunking, embedding) without using lots of memory.
+
+  ```python
+  from langchain_community.document_loaders import DirectoryLoader, PyPDFLoader
+
+  loader = DirectoryLoader(
+    path="./files/roadmap",
+    glob='*.pdf',
+    loader_cls= PyPDFLoader
+  )
+
+  docs = loader.lazy_load()
+
+  for doc in docs:
+    print(doc.metadata)
+  ```
