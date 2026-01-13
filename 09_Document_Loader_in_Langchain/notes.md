@@ -205,3 +205,17 @@
 ## CSVLoader :-
 
 - CSVLoader is a document loader used to load CSV files into Langchain Document objects one per row, by default.
+
+  ```python
+  from langchain_community.document_loaders import CSVLoader
+
+  loader = CSVLoader(file_path= './files/csv_file.csv')
+
+  docs = loader.load()
+
+  print(docs[1])
+  ```
+
+## Custom Document Loader :-
+
+- We can create a loader in langchain.
