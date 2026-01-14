@@ -41,7 +41,17 @@
   - Potential for ACID or near ACID guarentees.
   - Authentication/authorization and more advanced security features.
 - Geared for production enviroments with significant scaling, large datasets
-- Examples :- Milvus, Qdrant, Weaviate, etc
+- Examples :- Milvus, Qdrant, Pinecone, Weaviate, etc
 
 > A vector database effectively a vector store with extra database features
 > Example:- Clustering, scaling, security, metadata filtering, etc
+
+## Vector store in Langchain :-
+
+- **Supported Stores** :- Langchain integrates with multiple vector stores (FAISS, Pinecone, Chroma, Qdrant, Weaviate and etc), giving us flexibility in scale, features and deployment.
+- **Common Interface** :- A uniform vector store api lets us swap at one backend(E.g FAISS) for anotehr (E.x: Pinecone) with minimal code changes.
+- **Metadata Handling** :- Most vector stores in Langchain allows us to attach metadata (E.x: timestamps, authors) to each document, enabling filter-based retrieval.
+
+### Chroma Vector Stores :-
+
+- Chroma is a lightweight, open-source vector database that is especially friendly for local development and small to medium scale production needs.
