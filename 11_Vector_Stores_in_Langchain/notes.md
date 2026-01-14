@@ -19,3 +19,29 @@
     - RAG
     - Recommender systems
     - Image/Multimedia search
+
+## Vector store vs Vector Database
+
+### Vector store :-
+
+![store](./assets/store.png)
+
+- Typically refers to a lightweight library or service that focuses on storing vectors and performing similarity searches.
+- May not include many traditional database features like indexing, transactions, rich query languages or role-based access control.
+- Ideal for prototyping and small scale applications.
+- Examples :- `FAISS` - A facebook library where we store vectors and perform similarity searches. but we handle persistence and scaling separately.
+
+### Vector database :-
+
+- A full-fledged database system designed to store and query vectors.
+- Offers additional database-like features.
+  - Distributed architecture for horizontal scaling.
+  - Durability and persistence. (replication, backup, etc.)
+  - Metadata handling(Schemas, filters, etc.)
+  - Potential for ACID or near ACID guarentees.
+  - Authentication/authorization and more advanced security features.
+- Geared for production enviroments with significant scaling, large datasets
+- Examples :- Milvus, Qdrant, Weaviate, etc
+
+> A vector database effectively a vector store with extra database features
+> Example:- Clustering, scaling, security, metadata filtering, etc
