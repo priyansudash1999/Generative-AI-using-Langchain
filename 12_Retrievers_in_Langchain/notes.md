@@ -39,3 +39,24 @@
     - It is also turned into a vector.
     - The retriever compares the query vector with the stored vectors.
     - It retrieves the top-k most similar ones.
+      > Visit https://colab.research.google.com/drive/1ApZMyI7uAn1W-IwDVwh_ott--ojDJV-1#scrollTo=HSL-mGy-mF_J
+
+### Maximal Marginal Relevance (MMR) :-
+
+> How can we pick results that are not only relevant to the query but also different from each other.
+
+- MMR is an information retrieval algorithim designed to reduce redundancy in the retrieved results while maintaining high relevance to the query.
+- #### Why MMR Retriever ?
+  - In regular similiarity search, we may get documents that are:
+    - All very similar to each other
+    - Repeating the same info.
+    - Lacking diverse perspctives
+  - MMR Retriever avoids that by:
+    - Picking the most relevant document first
+    - Then picking the next relevant and least similar to already selected docs and so on..
+  - This helps especially in RAG pipelines where:
+    - You want your context window to contain diverse but still relevant information.
+    - Especially useful when documents are semantically overlapping.
+      > Visit https://colab.research.google.com/drive/1ApZMyI7uAn1W-IwDVwh_ott--ojDJV-1#scrollTo=HSL-mGy-mF_J
+
+### Multi-query Retriever :
