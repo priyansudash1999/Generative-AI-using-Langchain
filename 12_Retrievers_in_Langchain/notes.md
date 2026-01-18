@@ -60,3 +60,34 @@
       > Visit https://colab.research.google.com/drive/1ApZMyI7uAn1W-IwDVwh_ott--ojDJV-1#scrollTo=HSL-mGy-mF_J
 
 ### Multi-query Retriever :
+
+> Sometimes a single query might not capture all the ways information is phrased in our docs.
+
+- #### Query:-
+  > How can I stay healthy ?
+  - Could mean
+    - What should I eat ?
+    - How often should I exercise ?
+    - How can I manage stress ?
+
+### Contextual Compression Retriever :-
+
+- The Contextual Compression Retriever in Langchain is an advanced retriever that improves retrival quality by compressing documents after retrieval - keeping only the relevant content based on the query.
+
+- #### Query :-
+  - > What is Photosynthesis ?
+    - **Retrieval documents**
+
+      > The grand canyon is a famous natural site.
+
+      > Photosyntesis is how plant convert light into energy.
+
+      > Many tourists visit the canyon for its scenic beauty.
+
+    - Problem :-
+      - The retriever returns the whole content of the document.
+      - Only one setence is relevant to the query.\
+      - The rest is irrelevant.
+    - ##### What Contextual Compression Retriever does ?
+      - Returns only the relevant content.
+      - > Photosyntesis is how plant convert light into energy.
