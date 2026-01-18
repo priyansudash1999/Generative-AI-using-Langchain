@@ -91,3 +91,16 @@
     - ##### What Contextual Compression Retriever does ?
       - Returns only the relevant content.
       - > Photosyntesis is how plant convert light into energy.
+
+- How It works ?
+  1. Base Retriever (e.g FAISS, Chroma) retrieves N documents.
+  2. A Compressor (Usually an LLM) is applied to each document.
+  3. The comprressor keeps only the parts relevant to the query.
+  4. Irrelevant content is discarded.
+
+- When to use ?
+  - Your documents are long and contain mixed information.
+  - You want to reduce context length for LLMs.
+  - You need to improve answer accuracy in RAG pipelines.
+
+> ### There are many retreivers like BM25Retriever, ParentDocumentRetriever, SelfQueryRetriever and so on...
