@@ -24,3 +24,24 @@
 - Types of fine-tuning.
   - Supervised fine tuning
   - Continued pre training (unsupervised fine tuning)
+
+#### Supervised Fine Tuning :-
+
+- Steps:
+  - Step 1:- **Collect Data** - A few hundred-few hundred thousand carefully curated examples
+  - Step 2:- **Choose a method** - Full Parameter Fine tuning, LoRA\QLoRA or parameter-efficient adapters.
+  - Step 3:- **Train for a few epochs** - You keep the base weights frozen or partially frozen and update only a small subset(LoRA) or all weights(full Fine Tuning).
+  - Step 4:- **Evaluate & Safety test** - Measure exact match, factuality, and hallucination rate against held-out data; red-team for safety.
+
+##### **How fine tuning solve our problems situations ?**
+
+- **Private data** : When we train LLM with our private data then model can save it in its parameter and then it can able to answer the questions.
+- **Recent Data** : We can fine tune our new data repeatedly to update LLM about our data.
+- **Hallucianation** : We can add examples of tricky prompts(where LLM was confused ) to make LLM understand the tricky part, so it can answer about `I don't know`.
+
+  > There are some major problems in fine tuning.
+
+- Problems:-
+  - Expensive:- When we fine tune a large model it is very costly.
+  - Technical Expertize :- Need AL Engineers and Data scientists.
+  - Fine tune need after update any data in our website.
