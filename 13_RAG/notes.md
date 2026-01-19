@@ -14,3 +14,13 @@
   2. When we ask about recent or today's news to LLM because LLM has knowledge cutoff(When LLM was trained last). so, LLM can not respond us.
   3. Halucination:- Sometimes LLM can give incorrect response with confidently.
   - **So, what is the correct way to handle LLM. This is known as fine-tuning.**
+
+### Fine tuning :
+
+- We take a pretrained LLM and train it using some outsource data.
+
+  > #### Analogy:- A student got a it job in his college last year. Student is LLM here and the college syallbus is pretraining and when he got a job and got training in company that training is fine-tuning
+
+- Types of fine-tuning.
+  - Supervised fine tuning
+  - Continued pre training (unsupervised fine tuning)
