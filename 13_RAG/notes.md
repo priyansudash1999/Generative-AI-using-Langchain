@@ -45,3 +45,28 @@
   - Expensive:- When we fine tune a large model it is very costly.
   - Technical Expertize :- Need AL Engineers and Data scientists.
   - Fine tune need after update any data in our website.
+
+> Now the question is what is the ultimate way to solve our Problems easily. That is Incontext Learning.
+
+### Incontext Learning :-
+
+- InContext Learning is a core capability of LLMs like GPT-3/4, Claude and Llama, where the model learns to solve a task purely by seeing examples in the prompt-without updating its weights.
+- Ex:-
+
+  ```
+  Below are examples of texts labeled with their sentiment. Use these examples to determine the sentiment of the final text.
+
+  Text - I love this phone. It's so smooth. -> Positive
+  Text - The app crashes a lot. -> Negative
+  Text - The camera is amazing ! -> Positive
+
+
+  Text - I hate the battery life -> ?
+  ```
+
+- Incontext learning is an emergent property of langchain.
+- **Emergent Property** :- It is a behaviour or ability that suddenly appears in a system when it reaches a certain scale or complexity - even though it was not expilicitly programmed or expected from the indivisual components.
+
+### RAG :-
+
+-
