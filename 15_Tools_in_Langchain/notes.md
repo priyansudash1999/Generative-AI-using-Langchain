@@ -55,3 +55,19 @@
   - We want to call our own APIs.
   - We want to encapsulate buisness logic.
   - We want the LLM to interact with our database, product and app.
+
+### Ways to create custom tools
+
+> visit https://colab.research.google.com/drive/1bNBUKQRlIm8OLanAXnfHWm3SBuLCC8Nd#scrollTo=PZ5XPKhJRp6o
+
+![ways](./assets/ways.png)
+
+#### Using StructuredTool and Pydantic :-
+
+- A StructuredTool in langchain is a special type of tool where the input to the tool follows a structured schema, typically defined using a Pydantic model.
+
+#### Using BaseTool Class :-
+
+- BaseTool is a abstract base class for all tools in Langchain.
+- It defines the core structure and interface that any tool must follow, wheather it's a simple one-liner or a fully customized function.
+- All other tool like `@tool`, `StructuredTool` are built on top of BaseTool
