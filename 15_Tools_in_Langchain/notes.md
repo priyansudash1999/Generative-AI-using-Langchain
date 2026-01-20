@@ -104,3 +104,15 @@
   - the name of the tool
   - the arguments of the tool
 - The LLM does not actually run the tool - it just suggests the tool an the input arguments. The actual execution is handled by Langchain or the programmer.
+
+### Tool Execution:-
+
+- Tool Execution is the step where the actual python function is run using the input arguments that the LLM suggested during tool calling.
+- In simpler words:
+  - The LLM says:- HEY, call the multiply tool with a=3, b=2
+  - Tool Execution is when we or langchain actually run:
+    - multiply(a=2, b=3)
+    - and get the result as 6
+
+- **`Tool message`** is getting when we execute tool. we can send the tool message to LLM.
+  > Visit https://colab.research.google.com/drive/1dFeEP-b2t0H9mtdBWlf9CvEDB15yetoq#scrollTo=qL_-gUHLrw27 to get the code
