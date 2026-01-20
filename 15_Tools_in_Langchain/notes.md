@@ -71,3 +71,15 @@
 - BaseTool is a abstract base class for all tools in Langchain.
 - It defines the core structure and interface that any tool must follow, wheather it's a simple one-liner or a fully customized function.
 - All other tool like `@tool`, `StructuredTool` are built on top of BaseTool
+
+## Toolkits:-
+
+- A toolkit is just a collection of related tools that serve a common purpose - packaged together for convenience and reusability.
+- In langchain:
+  - A toolkit might be: GoogleDriveToolKit
+  - And it can contain the following tools
+    - `GoogleDriveSearchTool`: Search for a file by name/content
+    - `GoogleDriveCreateFileTool`: Upload a file
+    - `GoogleDriveReadFileTool`: Read contents of a life
+
+> visit https://colab.research.google.com/drive/1bNBUKQRlIm8OLanAXnfHWm3SBuLCC8Nd#scrollTo=PZ5XPKhJRp6o to get the code
