@@ -83,3 +83,24 @@
     - `GoogleDriveReadFileTool`: Read contents of a life
 
 > visit https://colab.research.google.com/drive/1bNBUKQRlIm8OLanAXnfHWm3SBuLCC8Nd#scrollTo=PZ5XPKhJRp6o to get the code
+
+# Tools calling
+
+## How to connect tool with LLM:
+
+- The process in which we connect tools with LLMs is called tool binding.
+
+### Tool Binding :-
+
+- Tool Binding is the step where we register tools with LLMs.
+
+1. The LLM knows what tools are availble.
+2. It knows what each tool does (via description)
+3. It knows what input format to use (via schema)
+
+### Tool Calling :-
+
+- Tool calling is the process where the LLM decides, during a conversation or task, that it needs to use a specific tool(function) -- and generates a structured output with:
+  - the name of the tool
+  - the arguments of the tool
+- The LLM does not actually run the tool - it just suggests the tool an the input arguments. The actual execution is handled by Langchain or the programmer.
