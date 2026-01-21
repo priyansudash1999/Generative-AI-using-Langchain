@@ -116,3 +116,7 @@
 
 - **`Tool message`** is getting when we execute tool. we can send the tool message to LLM.
   > Visit https://colab.research.google.com/drive/1dFeEP-b2t0H9mtdBWlf9CvEDB15yetoq#scrollTo=qL_-gUHLrw27 to get the code
+
+--- Currency converter
+
+> https://colab.research.google.com/drive/1czjLUfJ0iW9Mm7ucZT-1ND82Dnq8q3wJ#scrollTo=5cf4f2db
